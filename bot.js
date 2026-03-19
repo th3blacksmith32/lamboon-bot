@@ -18,7 +18,10 @@ const FEE_WALLET = new PublicKey(process.env.FEE_WALLET);
 const MINT_ADDRESS = new PublicKey(process.env.TOKEN_MINT_ADDRESS);
 const TOKEN_DECIMALS = Number(process.env.TOKEN_DECIMALS || "6");
 const MINT_AMOUNT = Number(process.env.MINT_AMOUNT || "10000");
-const RPC_URL = process.env.RPC_URL || "https://api.mainnet-beta.solana.com";
+const RPC_URL =
+  process.env.HELIUS_RPC_URL ||
+  process.env.RPC_URL ||
+  "https://mainnet.helius-rpc.com/?api-key=MY_API_KEY";
 const REQUIRED_PAYMENT_SOL = Number(process.env.REQUIRED_PAYMENT_SOL || "0.035");
 const FEE_AMOUNT_SOL = Number(process.env.FEE_AMOUNT_SOL || "0.010");
 const MAX_MINTS_PER_WALLET = Number(process.env.MAX_MINTS_PER_WALLET || "10");
