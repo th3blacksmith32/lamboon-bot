@@ -1,0 +1,20 @@
+Open this file for the bot settings:
+C:\Users\crypt\Downloads\mint-bot\.env
+
+Put your values there like this:
+
+TREASURY_ADDRESS=ADFrwvPZSxWVxSdaNT2QH9941M6Qreh2su62k22iGLVx
+FEE_WALLET=GZYBTmQD92yDA2mxc8DUkGiKuymRKmvkCQL4qW8VSNfa
+TOKEN_MINT_ADDRESS=GZYBTmQD92yDA2mxc8DUkGiKuymRKmvkCQL4qW8VSNfa
+RPC_URL=https://api.mainnet-beta.solana.com
+MINT_AMOUNT=10000
+TOKEN_DECIMALS=6
+REQUIRED_PAYMENT_SOL=0.035
+FEE_AMOUNT_SOL=0.010
+MAX_MINTS_PER_WALLET=10
+SUPABASE_URL=https://tzxsndeayvphuackxwzx.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=PASTE_YOUR_SUPABASE_SERVICE_ROLE_KEY_HERE
+PRIVATE_KEY=PASTE_YOUR_ROTATED_PRIVATE_KEY_HERE
+
+Do not put PRIVATE_KEY in the frontend project.
+Do not put PRIVATE_KEY in GitHub or Vercel frontend variables.
