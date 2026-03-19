@@ -8,8 +8,10 @@ const {
 } = require("@solana/web3.js");
 const { getOrCreateAssociatedTokenAccount, transfer } = require("@solana/spl-token");
 const { createClient } = require("@supabase/supabase-js");
-const bs58 = require("bs58");
+const bs58Module = require("bs58");
 require("dotenv").config();
+
+const bs58 = bs58Module.decode ? bs58Module : bs58Module.default;
 
 const TREASURY_WALLET = new PublicKey(process.env.TREASURY_ADDRESS);
 const FEE_WALLET = new PublicKey(process.env.FEE_WALLET);
