@@ -118,9 +118,12 @@ async function runBot() {
           console.log(
             `Payment detected from ${sender}. Mint ${currentMintCount + 1}/${MAX_MINTS_PER_WALLET}. Sending ${MINT_AMOUNT} $LAMBOON...`
           );
-          await sendTokens(new PublicKey(sender));
+          const tokenSignature = await sendTokens(new PublicKey(sender));
           await recordWalletMint(sender, currentMintCount + 1);
           await forwardFee(signature);
+          console.log(
+            `Fulfillment completed for ${sender}. Token tx: ${tokenSignature}`
+          );
         }
       } catch (err) {
         console.error("Error processing transaction:", signature, err);
@@ -131,33 +134,30 @@ async function runBot() {
 }
 
 async function sendTokens(recipient) {
-  try {
-    const fromAta = await getOrCreateAssociatedTokenAccount(
-      connection,
-      botKeypair,
-      MINT_ADDRESS,
-      botKeypair.publicKey
-    );
-    const toAta = await getOrCreateAssociatedTokenAccount(
-      connection,
-      botKeypair,
-      MINT_ADDRESS,
-      recipient
-    );
+  const fromAta = await getOrCreateAssociatedTokenAccount(
+    connection,
+    botKeypair,
+    MINT_ADDRESS,
+    botKeypair.publicKey
+  );
+  const toAta = await getOrCreateAssociatedTokenAccount(
+    connection,
+    botKeypair,
+    MINT_ADDRESS,
+    recipient
+  );
 
-    const tx = await transfer(
-      connection,
-      botKeypair,
-      fromAta.address,
-      toAta.address,
-      botKeypair.publicKey,
-      BigInt(MINT_AMOUNT) * BigInt(10 ** TOKEN_DECIMALS)
-    );
+  const tx = await transfer(
+    connection,
+    botKeypair,
+    fromAta.address,
+    toAta.address,
+    botKeypair.publicKey,
+    BigInt(MINT_AMOUNT) * BigInt(10 ** TOKEN_DECIMALS)
+  );
 
-    console.log(`Tokens sent. Sig: ${tx}`);
-  } catch (e) {
-    console.error("Token transfer failed:", e);
-  }
+  console.log(`Tokens sent. Sig: ${tx}`);
+  return tx;
 }
 
 async function getWalletMintCount(walletAddress) {
